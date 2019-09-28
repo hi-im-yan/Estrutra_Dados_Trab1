@@ -1,0 +1,7 @@
+(feito) 1. Criar classes Professor, Turma, SalaLab.
+() 2. Criar Atributos de acordo com os requisitos.
+() 3. Criar métodos de acordo com a necessidade.
+() 4. Criar métodos que imprimam os valores que precisam ser retornados no console.
+() 
+
+Se tiver mais coisas pra fazer, vamo adicionando.
