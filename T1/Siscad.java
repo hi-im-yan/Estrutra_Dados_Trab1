@@ -13,21 +13,8 @@ class Siscad {
   
   private static Turma tempTurma = null;
   private static SalaLab tempSala = null;
-
-
-
-
-  
   private static boolean turmaIsFound = false;
-
-
-
-  
   private static boolean professorIsFound = false;
-
-
-
-
   
   public static void main(String[] paramArrayOfString) {
     leituraDeDados();
