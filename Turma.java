@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Stack;
 
 public class Turma{
@@ -7,7 +8,8 @@ public class Turma{
     //Professores está como pilha, pois pela lógica o primeiro professor que pegar a turma fica com ela.
     //First in, Last out.
     //A pilha armazena uma String pois ela precisa armazenar o acrônimo do professor e não um Professor.
-    private Stack<String> professores = new Stack<String>(); 
+    private Stack<Professor> professores = new Stack<Professor>(); 
+    private Professor professor;
 
     //-----------------------Constructors----------------------------------//
     public Turma(){
@@ -17,6 +19,7 @@ public class Turma{
     public Turma(String nome, String acronimo){
         this.nome = nome;
         this.acronimo = acronimo;
+        this.professor = null;
     }
 
     //-----------------------Getters----------------------------------//
@@ -29,13 +32,13 @@ public class Turma{
         return this.acronimo;
     }
 
-    public Stack getProfessores(){
-        return this.professores;
+    public Professor getProfessor(){
+        return this.professor;
     }
 
-    public int getQuantidadeDeProfessoresNaTurma(){
-        return this.professores.size();
-    }
+//    public int getQuantidadeDeProfessoresNaTurma(){
+//        return this.professores.size();
+//    }
 
     //-----------------------Setters----------------------------------//
     public void setNome(String nome){
@@ -46,18 +49,58 @@ public class Turma{
         this.acronimo = acronimo;
     }
 
-    public void setProfessoresNaTurma(Professor professor){
-        this.professores.push(professor.getAcronimo());
+    public void setProfessor(Professor professor){
+        //Caso essa turma não tenha professor ainda, é atribuido um professor fixo para essa turma
+        if(this.professor == null){
+            this.professor = professor;
+        }
+        this.professores.push(professor);
     }
 
     //-----------------------Verificar os erros----------------------------------//
-    public void mostrarErro(){
-        if(getQuantidadeDeProfessoresNaTurma() > 1){
-            System.out.print("A turma " + this.acronimo + " está sendo ministrada por mais de um professor: ");
-            while(!professores.isEmpty()){
-                System.out.print(professores.pop() + " ");
-            }
-            System.out.println();
-        }
+//    public void mostrarErro(){
+//        if(getQuantidadeDeProfessoresNaTurma() > 1){
+//            System.out.print("A turma " + this.acronimo + " está sendo ministrada por mais de um professor: ");
+//            while(!professores.isEmpty()){
+//                System.out.print(professores.pop() + " ");
+//            }
+//            System.out.println();
+//        }
+//    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Turma other = (Turma) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.acronimo, other.acronimo)) {
+            return false;
+        }
+        return Objects.equals(this.professor, other.professor);
+    } 
+
+    @Override
+    public String toString() {
+        return "Turma{" + "nome=" + nome + ", acronimo=" + acronimo + ", professor=" + professor + '}';
+    }
+    
+    
+    
+    
 }
