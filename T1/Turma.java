@@ -1,7 +1,5 @@
-
 import java.util.Objects;
-
-//import java.util.Stack;
+import java.util.Stack;
 
 public class Turma{
 
@@ -10,7 +8,7 @@ public class Turma{
     //Professores está como pilha, pois pela lógica o primeiro professor que pegar a turma fica com ela.
     //First in, Last out.
     //A pilha armazena uma String pois ela precisa armazenar o acrônimo do professor e não um Professor.
-    //private Stack<String> professores = new Stack<String>(); 
+    private Stack<Professor> professores = new Stack<Professor>(); 
     private Professor professor;
 
     //-----------------------Constructors----------------------------------//
@@ -52,19 +50,25 @@ public class Turma{
     }
 
     public void setProfessor(Professor professor){
-        this.professor = professor;
+        //Caso essa turma não tenha professor ainda, é atribuido um professor fixo para essa turma
+        if(this.professor == null){
+            this.professor = professor;
+        }
+        this.professores.push(professor);
     }
 
     //-----------------------Verificar os erros----------------------------------//
-//    public void mostrarErro(){
-//        if(getQuantidadeDeProfessoresNaTurma() > 1){
-//            System.out.print("A turma " + this.acronimo + " está sendo ministrada por mais de um professor: ");
-//            while(!professores.isEmpty()){
-//                System.out.print(professores.pop() + " ");
-//            }
-//            System.out.println();
-//        }
-//    }
+   public void mostrarErro(Stack<String> EXP){
+       if(professores.size() > 1){
+           String result = new String("A turma " + this.acronimo + " está sendo ministrada por mais de um professor: ");
+           while(!professores.isEmpty()){
+               result += professores.pop().getAcronimo() + ", ";
+           }
+           result = result.substring(0, result.length() - 2);
+
+           EXP.push(result);
+       }
+   }
 
     @Override
     public int hashCode() {

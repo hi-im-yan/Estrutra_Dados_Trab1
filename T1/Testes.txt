@@ -1,5 +1,6 @@
-“Irineu Sotoma”, “IS”
+﻿“Irineu Sotoma”, “IS”
 “Outro Professor”, “OP”
+"Yan", "Yan"
 
 “Estruturas de Dados e Programação Orientada a Objetos - T01”, “EDOO-T01”
 “Tópicos em Redes de Computadores III - T01”, “TRC3-T01”
@@ -21,4 +22,8 @@
 “SO-T20”, “OP”
 “OD-T01”, “IS”
 “SO-T20”, “IS”
+“SO-T20”, "Yan"
+“TRC3-T01”, "OP"
+“TRC3-T01”, "OP"
+
 

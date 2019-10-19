@@ -1,4 +1,4 @@
-
+import java.util.Stack;
 import java.util.Objects;
 
 /*
@@ -30,6 +30,10 @@ public class Aula {
         this.duracaoAula = duracaoAula;
         this.turma = turma;
         this.sala = sala;
+    }
+
+    public void verificarErros(Stack<String> EX){
+        this.turma.mostrarErro(EX);
     }
     
     
