@@ -18,8 +18,8 @@ COISAS QUE PRECISAM RETORNAR:
 	4. Horário inicial de aula não permitido.
 	5. Duração de aula extrapola os limites permitidos.
 	6. Turma inexistente. - DONE
-	7. Professor inexistente.
-	8. Sala ou Laboratório inexistente.
+	7. Professor inexistente. - DONE
+	8. Sala ou Laboratório inexistente. - ON GOING
 
 CONDIÇÕES DO TRABALHO:
 	1. Usar vetores, listas, filas e pilhas.
