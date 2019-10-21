@@ -17,12 +17,18 @@ class Siscad {
   private static boolean turmaIsFound = false;
   private static boolean professorIsFound = false;
   
+  private static Stack<String> turmaInexistente = new Stack<String>();
+  private static Stack<String> professorInexistente = new Stack<String>();
+
+
   public static void main(String[] paramArrayOfString) {
     leituraDeDados();
     AULAS.forEach(aula -> {
       aula.verificarErros(EXCEPTIONS);
     });
     exibicaoDeErros();
+
+
   }
   
   private static void leituraDeDados() {
@@ -125,10 +131,12 @@ class Siscad {
 
       tempProfessor = null;
       if (!professorIsFound) {
-        EXCEPTIONS.push(new String("O Professor: " + professor + " nao existe"));
+        if(professorInexistente.search(professor) == -1)
+        professorInexistente.push(professor);
       }
       if (!turmaIsFound) {
-        EXCEPTIONS.push(new String("A Turma: " + turma + " nao existe"));
+        if(turmaInexistente.search(turma) == -1)
+        turmaInexistente.push(turma);
       }
       
       professorIsFound = false;
@@ -137,8 +145,36 @@ class Siscad {
     } 
   }
   
+
   private static void exibicaoDeErros() {
     EXCEPTIONS.forEach(paramException -> 
         System.out.println(paramException));
+
+    exibeTurmasInexistentes();
+    exibeProfessoresInexistentes();   
+  }
+
+  //Professores e turmas inexistentes estão sendo checados durante a leitura
+  //por isso as funções estão sendo colocadas dentro do arquivo siscad
+
+  private static void exibeProfessoresInexistentes(){
+    System.out.print("O(s) professor(es): ");
+    professorInexistente.forEach(p -> {
+      if(p.equals(professorInexistente.lastElement()))
+        System.out.println(p + " não existe(m).");
+      else
+        System.out.print(p + ", ");
+    });
+  }
+
+  private static void exibeTurmasInexistentes(){
+    System.out.print("A(s) turma(s): ");
+    turmaInexistente.forEach(t -> {
+      if(t.equals(turmaInexistente.lastElement()))
+        System.out.println(t + " não existe(m).");
+      else
+        System.out.print(t + ", ");
+    });
   }
 }
+

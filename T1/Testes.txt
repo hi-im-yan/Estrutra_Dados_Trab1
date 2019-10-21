@@ -25,5 +25,7 @@
 “SO-T20”, "Yan"
 “TRC3-T01”, "OP"
 “TRC3-T01”, "OP"
+"SALA-INEXISTENTE", "CARLOS"
+"SALA-INEXISTENTE", "Teste"
 
 
