@@ -19,12 +19,16 @@ class Siscad {
   
   private static Stack<String> turmaInexistente = new Stack<String>();
   private static Stack<String> professorInexistente = new Stack<String>();
+  private static Stack<String> salaInexistente = new Stack<String>();
 
 
   public static void main(String[] paramArrayOfString) {
     leituraDeDados();
     AULAS.forEach(aula -> {
-      aula.verificarErros(EXCEPTIONS);
+      aula.verificarErros();
+    });
+    TURMAS.forEach(turma -> {
+      turma.mostrarErro();
     });
     exibicaoDeErros();
 
@@ -97,11 +101,31 @@ class Siscad {
           });
       
       if (tempTurma == null) {
-        EXCEPTIONS.push(new String("Turma: " + acrTurma + " nao existe."));
+        turmaInexistente.push(acrTurma);
       } else if (tempSala == null) {
-        EXCEPTIONS.push(new String("Sala: " + acrSala + " nao existe."));
+        salaInexistente.push(acrSala);
       } else {
-        AULAS.add(new Aula(dia, horario, duracao, tempTurma, tempSala));
+
+        boolean jahExisteEssaAula = false;
+        //Se não encontrar uma Aula com um dia, horario e sala definida, é criado uma nova Aula
+        // AULAS.forEach(aula -> {
+        //   if(dia == aula.getDiaDaSemana() && aula.getHorarioInicial().equals(horario) && aula.getSala().equals(tempSala)){
+        //     aula.setTurma(tempTurma);
+        //     jahExisteEssaAula = true;
+        //   }
+        // });
+
+        for(Aula aula : AULAS){
+          if(dia == aula.getDiaDaSemana() && aula.getHorarioInicial().equals(horario) && aula.getSala().equals(tempSala)){
+            aula.setTurma(tempTurma);
+            jahExisteEssaAula = true;
+          }
+        }
+
+        if(!jahExisteEssaAula){
+          AULAS.add(new Aula(dia, horario, duracao, tempTurma, tempSala));
+        }  
+
       } 
       
       tempTurma = null;
@@ -132,11 +156,11 @@ class Siscad {
       tempProfessor = null;
       if (!professorIsFound) {
         if(professorInexistente.search(professor) == -1)
-        professorInexistente.push(professor);
+          professorInexistente.push(professor);
       }
       if (!turmaIsFound) {
         if(turmaInexistente.search(turma) == -1)
-        turmaInexistente.push(turma);
+          turmaInexistente.push(turma);
       }
       
       professorIsFound = false;
@@ -151,10 +175,11 @@ class Siscad {
         System.out.println(paramException));
 
     exibeTurmasInexistentes();
-    exibeProfessoresInexistentes();   
+    exibeProfessoresInexistentes();  
+    exibeSalasInexistentes(); 
   }
 
-  //Professores e turmas inexistentes estão sendo checados durante a leitura
+  //Casos inexistentes estão sendo checados durante a leitura
   //por isso as funções estão sendo colocadas dentro do arquivo siscad
 
   private static void exibeProfessoresInexistentes(){
@@ -171,6 +196,17 @@ class Siscad {
     System.out.print("A(s) turma(s): ");
     turmaInexistente.forEach(t -> {
       if(t.equals(turmaInexistente.lastElement()))
+        System.out.println(t + " não existe(m).");
+      else
+        System.out.print(t + ", ");
+    });
+  }
+
+  private static void exibeSalasInexistentes(){
+    System.out.println(salaInexistente.size());
+    System.out.print("A(s) sala(s): ");
+    salaInexistente.forEach(t -> {
+      if(t.equals(salaInexistente.lastElement()))
         System.out.println(t + " não existe(m).");
       else
         System.out.print(t + ", ");

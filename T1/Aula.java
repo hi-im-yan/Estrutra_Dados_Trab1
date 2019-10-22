@@ -23,6 +23,7 @@ public class Aula {
     
     private Turma turma;
     private SalaLab sala;
+    private Stack<String> extraTurmas = new Stack<String>();
 
     public Aula(int diaDaSemana, String horarioInicial, int duracaoAula, Turma turma, SalaLab sala) {
         this.diaDaSemana = diaDaSemana;
@@ -30,13 +31,24 @@ public class Aula {
         this.duracaoAula = duracaoAula;
         this.turma = turma;
         this.sala = sala;
+        this.extraTurmas.push(turma.getAcronimo());
     }
 
-    public void verificarErros(Stack<String> EX){
-        this.turma.mostrarErro(EX);
+    public void verificarErros(){
+        if(this.extraTurmas.size() > 1){
+            exibeTurmaNaMesmaSalaMesmoHorario();
+        }
     }
     
-    
+    public void exibeTurmaNaMesmaSalaMesmoHorario(){
+        System.out.print(this.sala.getAcronimo() + " está com mais de uma turma alocada no mesmo horário: ");
+        this.extraTurmas.forEach(et -> {
+            if(et.equals(extraTurmas.lastElement()))
+                System.out.println(et + ".");
+            else
+                System.out.print(et + ", ");
+        });
+    }
 
     @Override
     public String toString() {
@@ -109,7 +121,11 @@ public class Aula {
     }
 
     public void setTurma(Turma turma) {
-        this.turma = turma;
+        if(this.turma == null)
+            this.turma = turma;
+
+        if(this.extraTurmas.search(turma.getAcronimo()) == -1)
+            extraTurmas.push(turma.getAcronimo());
     }
 
     public SalaLab getSala() {

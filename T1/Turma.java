@@ -51,23 +51,24 @@ public class Turma{
 
     public void setProfessor(Professor professor){
         //Caso essa turma não tenha professor ainda, é atribuido um professor fixo para essa turma
-        if(this.professor == null){
+        if(this.professor == null)
             this.professor = professor;
-        }
-        this.professores.push(professor);
+        
+        if(this.professores.search(professor) == -1)
+            this.professores.push(professor);
     }
 
     //-----------------------Verificar os erros----------------------------------//
-   public void mostrarErro(Stack<String> EXP){
-       if(professores.size() > 1){
-           String result = new String("A turma " + this.acronimo + " está sendo ministrada por mais de um professor: ");
-           while(!professores.isEmpty()){
-               result += professores.pop().getAcronimo() + ", ";
-           }
-           result = result.substring(0, result.length() - 2);
-
-           EXP.push(result);
-       }
+   public void mostrarErro(){
+        if(professores.size() > 0){
+            System.out.print("A turma " + this.acronimo + " está sendo ministrada por mais de um professor: ");
+            professores.forEach(p -> {
+                if(p.getAcronimo().equals(professores.lastElement().getAcronimo()))
+                    System.out.println(p.getAcronimo() + ".");
+                else
+                    System.out.print(p.getAcronimo() + ", ");
+            });
+        }
    }
 
     @Override
