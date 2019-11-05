@@ -1,7 +1,7 @@
 public class SalaLab{
     private String nome;
     private String acronimo;
-
+    private Stack<Turma> turmaExtra = new Stack<Turma>();
     //-----------------------Constructors----------------------------------//
     public SalaLab(){
 

@@ -19,6 +19,7 @@
 “TRC3-T01”, “4”, “18h30”, “2”, “M13”
 "AY-T01", "2", "7h15", "4", "M12"
 "AAAAA", "2", "7h15", "4", "M12"
+"TURMA-INEXISTENTE", "2", "7h15", "4", "SALA-INEXISTENTE"
 
 “OD-T01”, “IS”
 “SO-T20”, “OP”
@@ -29,8 +30,8 @@
 “TRC3-T01”, "OP"
 "AY-T01", "IS"
 "AY-T01", "Yan"
-"SALA-INEXISTENTE", "CARLOS"
-"SALA-INEXISTENTE", "Teste"
+"TURMA-INEXISTENTE", "CARLOS"
+"TURMA-INEXISTENTE", "Teste"
 “EDOO-T01”, “Yan”
 “EDOO-T01”, “Yan”
 “EDOO-T01”, “IS”

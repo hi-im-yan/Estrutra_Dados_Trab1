@@ -24,6 +24,10 @@ class Siscad {
 
   public static void main(String[] paramArrayOfString) {
     leituraDeDados();
+
+    AULAS.forEach(aula -> {
+      System.out.println(aula);
+    });
     AULAS.forEach(aula -> {
       aula.verificarErros();
     });
@@ -102,12 +106,14 @@ class Siscad {
       
       if (tempTurma == null) {
         turmaInexistente.push(acrTurma);
-      } else if (tempSala == null) {
+      } if (tempSala == null) {
         salaInexistente.push(acrSala);
-      } else {
+      }
+      if(tempTurma != null && tempSala != null) {
 
         boolean jahExisteEssaAula = false;
         //Se não encontrar uma Aula com um dia, horario e sala definida, é criado uma nova Aula
+        //O forEach não deixa alterar valores dentro dele...
         // AULAS.forEach(aula -> {
         //   if(dia == aula.getDiaDaSemana() && aula.getHorarioInicial().equals(horario) && aula.getSala().equals(tempSala)){
         //     aula.setTurma(tempTurma);
@@ -177,39 +183,53 @@ class Siscad {
     exibeTurmasInexistentes();
     exibeProfessoresInexistentes();  
     exibeSalasInexistentes(); 
+    exibeProfessorMinistrandoVariasAulasNoMesmoHorario();
   }
 
   //Casos inexistentes estão sendo checados durante a leitura
   //por isso as funções estão sendo colocadas dentro do arquivo siscad
 
   private static void exibeProfessoresInexistentes(){
-    System.out.print("O(s) professor(es): ");
+    if(professorInexistente.size() > 0){
+      System.out.print("O(s) professor(es): ");
     professorInexistente.forEach(p -> {
       if(p.equals(professorInexistente.lastElement()))
         System.out.println(p + " não existe(m).");
       else
         System.out.print(p + ", ");
     });
+    }
   }
 
   private static void exibeTurmasInexistentes(){
-    System.out.print("A(s) turma(s): ");
+    if(turmaInexistente.size() > 0){
+      System.out.print("A(s) turma(s): ");
     turmaInexistente.forEach(t -> {
       if(t.equals(turmaInexistente.lastElement()))
         System.out.println(t + " não existe(m).");
       else
         System.out.print(t + ", ");
     });
+    }
   }
 
   private static void exibeSalasInexistentes(){
-    System.out.println(salaInexistente.size());
-    System.out.print("A(s) sala(s): ");
+    if(salaInexistente.size() > 0){
+      System.out.print("A(s) sala(s): ");
     salaInexistente.forEach(t -> {
       if(t.equals(salaInexistente.lastElement()))
         System.out.println(t + " não existe(m).");
       else
         System.out.print(t + ", ");
+    });
+    }
+  }
+
+  private static void exibeProfessorMinistrandoVariasAulasNoMesmoHorario(){
+    List<Aula> copiaAULAS = new ArrayList<Aula>(AULAS);
+
+    copiaAULAS.forEach(aula -> {
+      System.out.println(aula.getTurma());
     });
   }
 }

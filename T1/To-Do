@@ -1,16 +1,16 @@
 COISAS QUE PRECISAM RETORNAR:
 	1. Professor ministrando em duas ou mais turmas no mesmo horário.
-	2. Uma turma sendo ministrada por mais de um professor. - HALF DONE (BUGGED)
+	2. Uma turma sendo ministrada por mais de um professor. - DONE
 	3. Sala ou laboratório com uma ou mais turmas alocadas no mesmo horário. - DONE
 	4. Horário inicial de aula não permitido.
 	5. Duração de aula extrapola os limites permitidos.
 	6. Turma inexistente. - DONE
 	7. Professor inexistente. - DONE
-	8. Sala ou Laboratório inexistente. - On going
+	8. Sala ou Laboratório inexistente. - DONE
 
 Outros:
     1. Eliminar professor e turmas repetidos - DONE
 
 
 Anotações:
-	1. O código não está lendo a atribuição 
+	1. O código não está lendo a atribuição - DONE

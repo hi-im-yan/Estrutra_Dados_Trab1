@@ -21,8 +21,17 @@ public class Aula {
     private String horarioInicial;
     private int duracaoAula;
     
+
+    // private HashMap<HashMap<Professor, Turma>,HashMap<Turma, Sala>>AULAS = new HashMap<>();
+
+    // for (MapEntry node : AULAS) {
+    //     for (EntryKey key : AULAS.keys()) {
+    //         key = new HashMap<>()
+    //     }
+    //     for
+    // }
     private Turma turma;
-    private SalaLab sala;
+    private Stack<SalaLab> salas = new Stack<SalaLab>();
     private Stack<String> extraTurmas = new Stack<String>();
 
     public Aula(int diaDaSemana, String horarioInicial, int duracaoAula, Turma turma, SalaLab sala) {
@@ -90,7 +99,9 @@ public class Aula {
         return Objects.equals(this.sala, other.sala);
     }
     
-    
+    public Stack getExtraTurmas(){
+        return extraTurmas;
+    }
 
     public int getDiaDaSemana() {
         return diaDaSemana;
