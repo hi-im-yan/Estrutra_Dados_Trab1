@@ -9,6 +9,8 @@ public class Erros{
     private Stack<String> salaInexistente = new Stack<String>();
     private Stack<Professor> professorMinistrandoAulasNoMesmoHorario = new Stack<Professor>();
     private Stack<String> professorInexistente = new Stack<String>();
+    private Stack<Turma> turmaComVariosProfessores = new Stack<Turma>();
+    private Stack<SalaLab> SalaComTurmasNoMesmoHorario = new Stack<SalaLab>();
 
     public Stack teste(){
         return this.professorMinistrandoAulasNoMesmoHorario;
@@ -36,7 +38,30 @@ public class Erros{
             this.professorInexistente.push(professor);
     }
 
+    public void setTurmaComVariosProfessores(Turma turma){
+        if(turmaComVariosProfessores.search(turma) == -1)
+            this.turmaComVariosProfessores.push(turma);
+    }
+
+    public void setSalaComTurmasNoMesmoHorario(SalaLab sala){
+        if(SalaComTurmasNoMesmoHorario.search(sala) == -1)
+            this.SalaComTurmasNoMesmoHorario.push(sala);
+    }
+
     public void showAll(){
+        System.out.println("\n");
+
+        SalaComTurmasNoMesmoHorario.forEach(s -> {
+            System.out.println("A sala " + s.getAcronimo() + " está com mais de uma turma alocada no mesmo horario: " + s.getTurmaExtraNoMesmoHorario());
+        });
+
+        professorMinistrandoAulasNoMesmoHorario.forEach(p ->{
+            if(p.getListaTurmasNoMesmoHorario().size() > 0){
+                //IS está ministrando duas turmas no mesmo horário: EDOO-T01,TRC3-T01 
+                System.out.println(p.getAcronimo() + " está ministrando " + p.getListaTurmasNoMesmoHorario().size() + " turmas no mesmo horario: " +  p.getListaTurmasNoMesmoHorario());
+            }
+        });
+
 
         if(turmaInexistente.size() > 0){
             System.out.print("A(s) turmas(s) ");
@@ -46,7 +71,7 @@ public class Erros{
                 else
                     System.out.print(t + ", ");
         });
-        System.out.println();
+        //System.out.println();
         }
 
 
@@ -58,16 +83,15 @@ public class Erros{
             else
                 System.out.print(s + ", ");
         });
-        System.out.println();
+       // System.out.println();
         }
 
-        professorMinistrandoAulasNoMesmoHorario.forEach(p ->{
-            if(p.getListaTurmasNoMesmoHorario().size() > 0){
-                //IS está ministrando duas turmas no mesmo horário: EDOO-T01,TRC3-T01 
-                System.out.println(p.getAcronimo() + " está ministrando " + p.getListaTurmasNoMesmoHorario().size() + " turmas no mesmo horario: " +  p.getListaTurmasNoMesmoHorario());
-            }
+
+        turmaComVariosProfessores.forEach(t -> {
+            System.out.println("A turma " + t.getAcronimo() + " está sendo ministrada por mais de um professor:" + t.getProfessores());
         });
-        System.out.println();
+        
+        //System.out.println();
 
         if(professorInexistente.size() > 0){
             System.out.print("O(s) professores(s) ");
@@ -77,7 +101,10 @@ public class Erros{
             else
                 System.out.print(p + ", ");
         });
-        System.out.println();
+        //System.out.println();
         }
+
+        System.out.println("\n");
+        
     }
 }

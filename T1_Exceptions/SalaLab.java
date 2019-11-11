@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class SalaLab{
     private String nome;
     private String acronimo;
-    //private Stack<Turma> turmaExtra = new Stack<Turma>();
+    private List<String> turmaExtra = new ArrayList<String>();
     //-----------------------Constructors----------------------------------//
     public SalaLab(){
 
@@ -20,6 +23,10 @@ public class SalaLab{
         return this.acronimo;
     }
 
+    public List getTurmaExtraNoMesmoHorario(){
+        return this.turmaExtra;
+    }
+
     //-----------------------Setters----------------------------------//
     public void setNome(String nome){
         this.nome = nome;
@@ -27,5 +34,10 @@ public class SalaLab{
 
     public void setAcronimo(String acronimo){
         this.acronimo = acronimo;
+    }
+
+    public void setTurmaExtraNoMesmoHorario(String turma){
+        if(!turmaExtra.contains(turma))
+        this.turmaExtra.add(turma);
     }
 }

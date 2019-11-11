@@ -36,9 +36,9 @@ public class Turma{
         return this.professor;
     }
 
-//    public int getQuantidadeDeProfessoresNaTurma(){
-//        return this.professores.size();
-//    }
+    public Stack getProfessores(){
+        return this.professores;
+    }
 
     //-----------------------Setters----------------------------------//
     public void setNome(String nome){
@@ -59,17 +59,17 @@ public class Turma{
     }
 
     //-----------------------Verificar os erros----------------------------------//
-   public void mostrarErro(){
-        if(professores.size() > 0){
-            System.out.print("A turma " + this.acronimo + " está sendo ministrada por mais de um professor: ");
-            professores.forEach(p -> {
-                if(p.getAcronimo().equals(professores.lastElement().getAcronimo()))
-                    System.out.println(p.getAcronimo() + ".");
-                else
-                    System.out.print(p.getAcronimo() + ", ");
-            });
-        }
-   }
+//    public void mostrarErro(){
+//         if(professores.size() > 1){
+//             System.out.print("A turma " + this.acronimo + " está sendo ministrada por mais de um professor: ");
+//             professores.forEach(p -> {
+//                 if(p.getAcronimo().equals(professores.lastElement().getAcronimo()))
+//                     System.out.println(p.getAcronimo() + ".");
+//                 else
+//                     System.out.print(p.getAcronimo() + ", ");
+//             });
+//         }
+//    }
 
     @Override
     public int hashCode() {

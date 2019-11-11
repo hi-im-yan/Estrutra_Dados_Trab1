@@ -42,4 +42,9 @@ public class Professor{
         if(!turmasMinistradasNoMesmoHorario.contains(turma))
         this.turmasMinistradasNoMesmoHorario.add(turma);
     }
+
+
+    public String toString(){
+        return this.acronimo;
+    }
 }
