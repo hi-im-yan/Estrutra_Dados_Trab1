@@ -12,13 +12,14 @@
 “Sala do Multiuso M12”, “M12”
 “Laboratório de Ensino X”, “LABX”
 
-“SO-T20”, “2”, “7h15”, “4”, “M12”
-“EDOO-T01”, “2”, “7h15”, “4”, “LAB1”
+“SO-T20”, “2”, “7h15”, “2”, “M12”
+“EDOO-T01”, “2”, “7h15”, “2”, “LAB1”
 “EDOO-T01”, “4”, “18h30”, “2”, “M13”
 “EDOO-T01”, “6”, “18h30”, “2”, “LAB1”
 “TRC3-T01”, “4”, “7h15”, “2”, “M13”
-"AY-T01", "4", "7h15", "4", "M12"
-"AAAAA", "2", "7h15", "4", "M12"
+"AY-T01", "4", "7h15", "1", "M12"
+"AAAAA", "2", "7h15", "3", "M12"
+"TRC3-T01", "6", "8h12", "3", "M12"
 "TURMA-INEXISTENTE", "2", "7h15", "4", "SALA-INEXISTENTE"
 
 “OD-T01”, “IS”
