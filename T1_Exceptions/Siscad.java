@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.InputMismatchException;
 
 class Siscad {
   private static final List<Aula> AULAS = new ArrayList<Aula>();
@@ -89,9 +90,9 @@ class Siscad {
       int dia = 0;
       try {
         dia = Integer.parseInt(str.substring(0, str.indexOf(",") - 1));
-      } catch (InputMismatchException e) {
+      } catch (InputMismatchException  e) {
         String d = str.substring(0, str.indexOf(",") - 1);
-        switch(d.toLower()) {
+        switch(d.toLowerCase()) {
           case "s": 
             dia  = 7;
             break;
