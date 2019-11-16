@@ -3,7 +3,7 @@ import java.util.*;
 public class Horario {
     private int duracao;
     private String horarioInicial;
-    private final Map<String,String> intervalos;
+    private final Map<String, String> intervalos;
 
     public boolean isValid() {
 
@@ -14,7 +14,7 @@ public class Horario {
         String strResultante = horaResultante + "h" + minutoInicial;
 
         boolean flag = true;
-        for (Map.Entry<String,String> intervalo : intervalos.entrySet()) {
+        for (Map.Entry<String, String> intervalo : intervalos.entrySet()) {
             if (intervalo.getKey().hashCode() <= strResultante.hashCode()
                     && intervalo.getValue().hashCode() > strResultante.hashCode()) {
                 flag = false;
@@ -34,10 +34,10 @@ public class Horario {
         this.intervalos.put("20h30", "20h40");
     }
 
-    public Horario(int duracao, String horarioInicial, Map intervalos) {
+    public Horario(int duracao, String horarioInicial, Map<String, String> intervalos) {
         this.duracao = duracao;
         this.horarioInicial = horarioInicial;
-        this.intervalos = intervalos;
+        this.intervalos = null;
     }
 
     public Horario(int duracao, String horarioInicial) {
@@ -67,7 +67,7 @@ public class Horario {
         this.horarioInicial = horarioInicial;
     }
 
-    public Map getIntervalos() {
+    public Map<String,String> getIntervalos() {
         return this.intervalos;
     }
 

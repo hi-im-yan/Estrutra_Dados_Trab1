@@ -7,28 +7,24 @@ import java.util.Objects;
  * and open the template in the editor.
  */
 
-
-
 /**
  *
  * @author Unknow
  */
 public class Aula {
-    
-    
-    
+
     private int diaDaSemana;
     private String horarioInicial;
     private int duracaoAula;
-    
 
-    // private HashMap<HashMap<Professor, Turma>,HashMap<Turma, Sala>>AULAS = new HashMap<>();
+    // private HashMap<HashMap<Professor, Turma>,HashMap<Turma, Sala>>AULAS = new
+    // HashMap<>();
 
     // for (MapEntry node : AULAS) {
-    //     for (EntryKey key : AULAS.keys()) {
-    //         key = new HashMap<>()
-    //     }
-    //     for
+    // for (EntryKey key : AULAS.keys()) {
+    // key = new HashMap<>()
+    // }
+    // for
     // }
     private Turma turma;
     private SalaLab sala;
@@ -43,16 +39,16 @@ public class Aula {
         this.extraTurmas.push(turma.getAcronimo());
     }
 
-    public void verificarErros(){
-        if(this.extraTurmas.size() > 1){
+    public void verificarErros() {
+        if (this.extraTurmas.size() > 1) {
             exibeTurmaNaMesmaSalaMesmoHorario();
         }
     }
-    
-    public void exibeTurmaNaMesmaSalaMesmoHorario(){
+
+    public void exibeTurmaNaMesmaSalaMesmoHorario() {
         System.out.print(this.sala.getAcronimo() + " está com mais de uma turma alocada no mesmo horário: ");
         this.extraTurmas.forEach(et -> {
-            if(et.equals(extraTurmas.lastElement()))
+            if (et.equals(extraTurmas.lastElement()))
                 System.out.println(et + ".");
             else
                 System.out.print(et + ", ");
@@ -61,10 +57,9 @@ public class Aula {
 
     @Override
     public String toString() {
-        return "Aula{" + "diaDaSemana=" + diaDaSemana + ", horarioInicial=" + horarioInicial + ", duracaoAula=" + duracaoAula + ", turma=" + turma + ", sala=" + sala + '}';
+        return "Aula{" + "diaDaSemana=" + diaDaSemana + ", horarioInicial=" + horarioInicial + ", duracaoAula="
+                + duracaoAula + ", turma=" + turma + ", sala=" + sala + '}';
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -98,8 +93,8 @@ public class Aula {
         }
         return Objects.equals(this.sala, other.sala);
     }
-    
-    public Stack getExtraTurmas(){
+
+    public Stack<String> getExtraTurmas() {
         return extraTurmas;
     }
 
@@ -132,10 +127,10 @@ public class Aula {
     }
 
     public void setTurma(Turma turma) {
-        if(this.turma == null)
+        if (this.turma == null)
             this.turma = turma;
 
-        if(this.extraTurmas.search(turma.getAcronimo()) == -1)
+        if (this.extraTurmas.search(turma.getAcronimo()) == -1)
             extraTurmas.push(turma.getAcronimo());
     }
 
@@ -146,7 +141,5 @@ public class Aula {
     public void setSala(SalaLab sala) {
         this.sala = sala;
     }
-    
-    
-    
+
 }

@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Stack;
-
 
 class Siscad {
   private static final List<Aula> AULAS = new ArrayList<Aula>();
@@ -18,10 +16,6 @@ class Siscad {
   private static SalaLab tempSala = null;
   private static boolean turmaIsFound = false;
   private static boolean professorIsFound = false;
-
-  private static Stack<String> turmaInexistente = new Stack<String>();
-  private static Stack<String> professorInexistente = new Stack<String>();
-  private static Stack<String> salaInexistente = new Stack<String>();
 
   private static List<String> horariosValidos = new ArrayList<>();
 
@@ -90,18 +84,18 @@ class Siscad {
       int dia = 0;
       try {
         dia = Integer.parseInt(str.substring(0, str.indexOf(",") - 1));
-      } catch (NumberFormatException  e) {
+      } catch (NumberFormatException e) {
         String d = str.substring(0, str.indexOf(",") - 1);
-        switch(d.toLowerCase()) {
-          case "s": 
-            dia  = 7;
-            break;
-          case "d": 
-            dia  = 8;
-            break;
-          default:
-            break;
-          
+        switch (d.toLowerCase()) {
+        case "s":
+          dia = 7;
+          break;
+        case "d":
+          dia = 8;
+          break;
+        default:
+          break;
+
         }
       }
       str = str.substring(str.indexOf(",") + 3, str.length());
@@ -156,8 +150,9 @@ class Siscad {
             }
           }
         }
-
-        AULAS.add(new Aula(dia, horario, duracao, tempTurma, tempSala));
+        if (!jahExisteEssaAula) {
+          AULAS.add(new Aula(dia, horario, duracao, tempTurma, tempSala));
+        }
 
       }
 

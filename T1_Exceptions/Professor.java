@@ -1,50 +1,50 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Professor{
+public class Professor {
     private String nome;
     private String acronimo;
 
     private List<String> turmasMinistradasNoMesmoHorario = new ArrayList<String>();
 
-    //-----------------------Constructors----------------------------------//
-    public Professor(){
+    // -----------------------Constructors----------------------------------//
+    public Professor() {
 
     }
 
-    public Professor(String nome, String acronimo){
+    public Professor(String nome, String acronimo) {
         this.nome = nome;
         this.acronimo = acronimo;
     }
 
-    //-----------------------Getters----------------------------------//
-    public String getNome(){
+    // -----------------------Getters----------------------------------//
+    public String getNome() {
         return this.nome;
     }
-    public String getAcronimo(){
+
+    public String getAcronimo() {
         return this.acronimo;
     }
 
-    public List getListaTurmasNoMesmoHorario(){
+    public List<String> getListaTurmasNoMesmoHorario() {
         return this.turmasMinistradasNoMesmoHorario;
     }
 
-    //-----------------------Setters----------------------------------//
-    public void setNome(String nome){
+    // -----------------------Setters----------------------------------//
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setAcronimo(String acronimo){
+    public void setAcronimo(String acronimo) {
         this.acronimo = acronimo;
     }
 
-    public void setTurmaNoMesmoHorario(String turma){
-        if(!turmasMinistradasNoMesmoHorario.contains(turma))
-        this.turmasMinistradasNoMesmoHorario.add(turma);
+    public void setTurmaNoMesmoHorario(String turma) {
+        if (!turmasMinistradasNoMesmoHorario.contains(turma))
+            this.turmasMinistradasNoMesmoHorario.add(turma);
     }
 
-
-    public String toString(){
+    public String toString() {
         return this.acronimo;
     }
 }

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class Erros {
@@ -13,7 +11,7 @@ public class Erros {
     private Stack<String> horariosUltrapassamLimitesPermitidos = new Stack<String>();
     private Stack<String> horarioInicialInvalido = new Stack<String>();
 
-    public Stack teste() {
+    public Stack<Professor> teste() {
         return this.professorMinistrandoAulasNoMesmoHorario;
     }
 
