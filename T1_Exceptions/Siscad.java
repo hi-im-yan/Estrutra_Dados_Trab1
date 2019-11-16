@@ -9,7 +9,7 @@ class Siscad {
   private static final List<Professor> PROFESSORES = new ArrayList<Professor>();
   private static final List<SalaLab> SALAS = new ArrayList<SalaLab>();
   private static final Scanner IN = new Scanner(System.in);
-  private static final Stack<String> EXCEPTIONS = new Stack<String>();
+
   private static Erros erro = new Erros();
 
   private static Professor tempProfessor = null;
@@ -39,8 +39,8 @@ class Siscad {
     Siscad.horariosValidos.add("19h30");
     Siscad.horariosValidos.add("20h40");
     Siscad.horariosValidos.add("21h40");
+
     leituraDeDados();
-    exibicaoDeErros();
 
     erro.showAll();
 
@@ -86,7 +86,23 @@ class Siscad {
     while (!str.equals("")) {
       String acrTurma = str.substring(1, str.indexOf(",") - 1);
       str = str.substring(str.indexOf(",") + 3, str.length());
-      int dia = Integer.parseInt(str.substring(0, str.indexOf(",") - 1));
+      int dia = 0;
+      try {
+        dia = Integer.parseInt(str.substring(0, str.indexOf(",") - 1));
+      } catch (InputMismatchException e) {
+        String d = str.substring(0, str.indexOf(",") - 1);
+        switch(d.toLower()) {
+          case "s": 
+            dia  = 7;
+            break;
+          case "d": 
+            dia  = 8;
+            break;
+          default:
+            break;
+          
+        }
+      }
       str = str.substring(str.indexOf(",") + 3, str.length());
       String horario = str.substring(0, str.indexOf(",") - 1);
       str = str.substring(str.indexOf(",") + 3, str.length());
@@ -222,10 +238,6 @@ class Siscad {
     }
 
     tempProfessor = null;
-  }
-
-  private static void exibicaoDeErros() {
-    EXCEPTIONS.forEach(paramException -> System.out.println(paramException));
   }
 
 }

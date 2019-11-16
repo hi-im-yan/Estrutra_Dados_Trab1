@@ -2,8 +2,8 @@ COISAS QUE PRECISAM RETORNAR:
 	1. Professor ministrando em duas ou mais turmas no mesmo horário.
 	2. Uma turma sendo ministrada por mais de um professor. - DONE
 	3. Sala ou laboratório com uma ou mais turmas alocadas no mesmo horário. - DONE
-	4. Horário inicial de aula não permitido.
-	5. Duração de aula extrapola os limites permitidos.
+	4. Horário inicial de aula não permitido. DONE
+	5. Duração de aula extrapola os limites permitidos. DONE
 	6. Turma inexistente. - DONE
 	7. Professor inexistente. - DONE
 	8. Sala ou Laboratório inexistente. - DONE
