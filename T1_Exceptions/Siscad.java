@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Stack;
 
 class Siscad {
   private static final List<Aula> AULAS = new ArrayList<Aula>();
@@ -8,7 +9,7 @@ class Siscad {
   private static final List<Professor> PROFESSORES = new ArrayList<Professor>();
   private static final List<SalaLab> SALAS = new ArrayList<SalaLab>();
   private static final Scanner IN = new Scanner(System.in);
-
+  private static final Stack<String> EXCEPTIONS = new Stack<String>();
   private static Erros erro = new Erros();
 
   private static Professor tempProfessor = null;
@@ -34,8 +35,29 @@ class Siscad {
     Siscad.horariosValidos.add("19h30");
     Siscad.horariosValidos.add("20h40");
     Siscad.horariosValidos.add("21h40");
-
     leituraDeDados();
+
+    // PROFESSORES.forEach(p -> {
+    // System.out.println(p.getListaTurmasNoMesmoHorario());
+    // });
+
+    // System.out.println(erro.teste());
+
+    // AULAS.forEach(a -> {
+    // System.out.println("---" + a.getTurma().getAcronimo() + " - " +
+    // a.getTurma().getProfessor().getAcronimo());
+    // });
+
+    // AULAS.forEach(aula -> {
+    // System.out.println(aula);
+    // });
+    // AULAS.forEach(aula -> {
+    // aula.verificarErros();
+    // });
+    // TURMAS.forEach(turma -> {
+    // turma.mostrarErro();
+    // });
+    exibicaoDeErros();
 
     erro.showAll();
 
@@ -106,6 +128,7 @@ class Siscad {
       String acrSala = str.substring(0, str.length() - 1);
       // System.out.println("Aula: " + acrTurma + " " + dia + " " + horario + " " +
       // duracao + " " + acrSala);
+
       if (!Siscad.horariosValidos.contains(horario))
         erro.setHorarioInicialInvalido(acrTurma);
       Horario hr = new Horario(duracao, horario);
@@ -150,8 +173,8 @@ class Siscad {
             }
           }
         }
-        if (!jahExisteEssaAula)
-          AULAS.add(new Aula(dia, horario, duracao, tempTurma, tempSala));
+
+        AULAS.add(new Aula(dia, horario, duracao, tempTurma, tempSala));
 
       }
 
@@ -233,6 +256,10 @@ class Siscad {
     }
 
     tempProfessor = null;
+  }
+
+  private static void exibicaoDeErros() {
+    EXCEPTIONS.forEach(paramException -> System.out.println(paramException));
   }
 
 }

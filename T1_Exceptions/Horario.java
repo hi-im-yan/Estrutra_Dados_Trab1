@@ -14,25 +14,21 @@ public class Horario {
         int minutoInicial = Integer.parseInt(this.horarioInicial.substring(indexOfH + 1, this.horarioInicial.length()));
         int horaResultante = horaInicial + this.duracao;
         String strResultante = horaResultante + "h" + minutoInicial;
-        boolean flag = true;
-        int skipInit = 0;
-        int skipEnd = 0;
         for (Map.Entry<String, String> intervalo : this.entrySet) {
-            if (this.horarioInicial.hashCode() < intervalo.getValue().hashCode()) {
-                skipInit++;
+            System.out.println("Inicial: " + this.horarioInicial.hashCode() + "\n");
+            System.out.println("Intervalo fim: " + intervalo.getValue().hashCode() + "\n");
+            if (this.horarioInicial.hashCode() < intervalo.getValue().hashCode())
                 continue;
-            }
-            if (intervalo.getKey().hashCode() < strResultante.hashCode()
-                    && intervalo.getValue().hashCode() > strResultante.hashCode()) {
-                flag = false;
-
-            }
-            skipEnd++;
+            else if (this.horarioInicial.hashCode() > intervalo.getValue().hashCode()
+                    && this.horarioInicial.hashCode() < intervalo.getKey().hashCode())
+                return false;
+            else if (intervalo.getKey().hashCode() < strResultante.hashCode()
+                    && intervalo.getValue().hashCode() > strResultante.hashCode())
+                return false;
 
         }
-        if (skipEnd < skipInit)
-            flag = false;
-        return flag;
+
+        return true;
     }
 
     public Horario() {

@@ -62,15 +62,15 @@ public class Erros {
     public void showAll() {
         System.out.println("\n");
 
-        SalaComTurmasNoMesmoHorario.forEach(s -> {
-            System.out.println("A sala " + s.getAcronimo() + " está com mais de uma turma alocada no mesmo horario: "
-                    + s.getTurmaExtraNoMesmoHorario());
-        });
         horariosUltrapassamLimitesPermitidos.forEach(turma -> {
             System.out.println("A duracao de aula da turma " + turma + " ultrapassa os limites permitidos.");
         });
         horarioInicialInvalido.forEach(turma -> {
             System.out.println("O horario inicial de  " + turma + " e invalido.");
+        });
+        SalaComTurmasNoMesmoHorario.forEach(s -> {
+            System.out.println("A sala " + s.getAcronimo() + " está com mais de uma turma alocada no mesmo horario: "
+                    + s.getTurmaExtraNoMesmoHorario());
         });
 
         professorMinistrandoAulasNoMesmoHorario.forEach(p -> {
