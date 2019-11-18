@@ -150,9 +150,8 @@ class Siscad {
             }
           }
         }
-        if (!jahExisteEssaAula) {
+        if (!jahExisteEssaAula)
           AULAS.add(new Aula(dia, horario, duracao, tempTurma, tempSala));
-        }
 
       }
 
