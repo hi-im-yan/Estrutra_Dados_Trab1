@@ -9,7 +9,6 @@ class Siscad {
   private static final List<Professor> PROFESSORES = new ArrayList<Professor>();
   private static final List<SalaLab> SALAS = new ArrayList<SalaLab>();
   private static final Scanner IN = new Scanner(System.in);
-  private static final Stack<String> EXCEPTIONS = new Stack<String>();
   private static Erros erro = new Erros();
 
   private static Professor tempProfessor = null;
@@ -36,33 +35,10 @@ class Siscad {
     Siscad.horariosValidos.add("19h30");
     Siscad.horariosValidos.add("20h40");
     Siscad.horariosValidos.add("21h40");
+
     leituraDeDados();
-    
-
-    // PROFESSORES.forEach(p -> {
-    // System.out.println(p.getListaTurmasNoMesmoHorario());
-    // });
-
-    // System.out.println(erro.teste());
-
-    // AULAS.forEach(a -> {
-    // System.out.println("---" + a.getTurma().getAcronimo() + " - " +
-    // a.getTurma().getProfessor().getAcronimo());
-    // });
-
-    // AULAS.forEach(aula -> {
-    // System.out.println(aula);
-    // });
-    // AULAS.forEach(aula -> {
-    // aula.verificarErros();
-    // });
-    // TURMAS.forEach(turma -> {
-    // turma.mostrarErro();
-    // });
-    //exibicaoDeErros();
 
     erro.showAll();
-
   }
 
   private static void leituraDeDados() {
@@ -71,9 +47,7 @@ class Siscad {
     String str = IN.nextLine();
     while (!str.equals("")) {
       String nome = str.substring(1, str.indexOf(",") - 1);
-      // System.out.println(nome);
       String acronimo = str.substring(str.indexOf(",") + 3, str.length() - 1);
-      // System.out.println(acronimo);
       PROFESSORES.add(new Professor(nome, acronimo));
       str = IN.nextLine();
     }
@@ -82,9 +56,7 @@ class Siscad {
     str = IN.nextLine();
     while (!str.equals("")) {
       String nome = str.substring(1, str.indexOf(",") - 1);
-      // System.out.println(nome);
       String acronimo = str.substring(str.indexOf(",") + 3, str.length() - 1);
-      // System.out.println(acronimo);
       TURMAS.add(new Turma(nome, acronimo));
       str = IN.nextLine();
     }
@@ -93,9 +65,7 @@ class Siscad {
     str = IN.nextLine();
     while (!str.equals("")) {
       String nome = str.substring(1, str.indexOf(",") - 1);
-      // System.out.println(nome);
       String acronimo = str.substring(str.indexOf(",") + 3, str.length() - 1);
-      // System.out.println(acronimo);
       SALAS.add(new SalaLab(nome, acronimo));
       str = IN.nextLine();
     }
@@ -106,6 +76,7 @@ class Siscad {
       String acrTurma = str.substring(1, str.indexOf(",") - 1);
       str = str.substring(str.indexOf(",") + 3, str.length());
       int dia = 0;
+      boolean diaValido = true;
       try {
         dia = Integer.parseInt(str.substring(0, str.indexOf(",") - 1));
       } catch (NumberFormatException e) {
@@ -118,6 +89,8 @@ class Siscad {
           dia = 8;
           break;
         default:
+          //se o dia lido não for nenhum dia da semana, a aula não será criada
+          diaValido = false;
           break;
 
         }
@@ -128,48 +101,51 @@ class Siscad {
       int duracao = Integer.parseInt(str.substring(0, str.indexOf(",") - 1));
       str = str.substring(str.indexOf(",") + 3, str.length());
       String acrSala = str.substring(0, str.length() - 1);
-      // System.out.println("Aula: " + acrTurma + " " + dia + " " + horario + " " +
-      // duracao + " " + acrSala);
 
+      //se o horario inicial for inválido, o erro é enviado para classe Erro
       if (!Siscad.horariosValidos.contains(horario))
         erro.setHorarioInicialInvalido(acrTurma);
       Horario hr = new Horario(duracao, horario);
 
+      //se a duração da aula extrapolar o inicio de um intervalo, o erro é enviado para classe Erro
       if (!hr.isValid())
         erro.setHorariosUltrapassamLimitesPermitidos(acrTurma);
 
+      //verificando se a turma lida está na lista de TURMAS
       TURMAS.forEach(t -> {
         if (t.getAcronimo().equals(acrTurma)) {
           tempTurma = t;
         }
       });
-
+      //se a turma não for encontrada, o erro é enviado para classe Erro
       if (tempTurma == null) {
         erro.setTurmaInexistente(acrTurma);
       }
 
+      //verificando se a sala lida está na lista de SALAS
       SALAS.forEach(paramSalaLab -> {
         if (paramSalaLab.getAcronimo().equals(acrSala)) {
           paramSalaLab.setTurmaExtraNoMesmoHorario(acrTurma);
 
+          //se a a sala possuir mais de uma turma no mesmo horario, o erro é enviado para classe Erro
           if (paramSalaLab.getTurmaExtraNoMesmoHorario().size() > 1)
             erro.setSalaComTurmasNoMesmoHorario(paramSalaLab);
           tempSala = paramSalaLab;
         }
       });
-
+      //se a sala não for encontrada, o erro é enviado para classe Erro
       if (tempSala == null) {
         erro.setSalaInexistente(acrSala);
       }
 
-      if (tempTurma != null && tempSala != null) {
-
+      //se a turma existir, a sala existir e o dia da semana for válido, é criado uma nova aula
+      if (tempTurma != null && tempSala != null && diaValido) {
         AULAS.add(new Aula(dia, horario, duracao, tempTurma, tempSala));
-
       }
 
       tempTurma = null;
       tempSala = null;
+      diaValido = true;
       str = IN.nextLine();
     }
 
@@ -177,34 +153,37 @@ class Siscad {
     str = IN.nextLine();
     while (!str.equals("")) {
       String turma = str.substring(1, str.indexOf(",") - 1);
-      // System.out.println(turma);
       String professor = str.substring(str.indexOf(",") + 3, str.length() - 1);
-      // System.out.println(professor);
+
+      //verifica se o professor está na lista de PROFESSORES
       PROFESSORES.forEach(p -> {
         if (p.getAcronimo().equals(professor)) {
           professorIsFound = true;
           tempProfessor = p;
         }
-
+      //se o professor não for encontrado, o erro é enviado para classe Erro
       });
       if (!professorIsFound) {
         erro.setProfessorInexistente(professor);
       }
 
+      //verifica se a turma existe na lista de TURMAS
       TURMAS.forEach(t -> {
         if (t.getAcronimo().equals(turma)) {
           turmaIsFound = true;
-
           t.setProfessor(tempProfessor);
 
+          //se a turma estiver com mais de um professor ministrando ela, o erro é enviado para classe Erro
           if (t.getProfessores().size() > 1)
             erro.setTurmaComVariosProfessores(t);
         }
       });
+      //se a turma não for encontrada, o erro é enviado para classe Erro
       if (!turmaIsFound) {
         erro.setTurmaInexistente(turma);
       }
 
+      //se o professor for encontrado, é checado se ele está ministrando várias aulas no mesmo horario
       if (tempProfessor != null)
         checarHorariosDoProfessor(tempProfessor.getAcronimo());
 
@@ -215,13 +194,16 @@ class Siscad {
     }
   }
 
+  //função para checar se o professor está ministrando várias aulas no mesmo horario
   private static void checarHorariosDoProfessor(String acrProfessor) {
 
+    //procura pelo acronimo do professor na lista de PROFESSORES
     for (Professor professor : PROFESSORES) {
       if (professor.getAcronimo().equals(acrProfessor))
         tempProfessor = professor;
     }
-    // System.out.println("tempProfessor = " + tempProfessor.getAcronimo());
+
+    //variável que armazena todas as aulas do professor
     List<Aula> aulasDoProfessor = new ArrayList<Aula>();
     AULAS.forEach(a -> {
       if (a.getTurma().getProfessor() != null) {
@@ -230,11 +212,9 @@ class Siscad {
       }
     });
 
+    //se o professor tiver mais de uma aula no mesmo dia e mesmo horario inicial, o erro é enviado para classe Erro
     for (int i = 0; i < aulasDoProfessor.size(); i++) {
       for (int j = i + 1; j < aulasDoProfessor.size(); j++) {
-        // System.out.println(acrProfessor + " - " +
-        // aulasDoProfessor.get(i).getTurma().getAcronimo() + ", " +
-        // aulasDoProfessor.get(j).getTurma().getAcronimo());
         if (aulasDoProfessor.get(i).getDiaDaSemana() == aulasDoProfessor.get(j).getDiaDaSemana()) {
           if (aulasDoProfessor.get(i).getHorarioInicial().equals(aulasDoProfessor.get(j).getHorarioInicial()))
             erro.setProfessorMinistrandoAulasNoMesmoHorario(tempProfessor);
@@ -246,10 +226,6 @@ class Siscad {
     }
 
     tempProfessor = null;
-  }
-
-  private static void exibicaoDeErros() {
-    EXCEPTIONS.forEach(paramException -> System.out.println(paramException));
   }
 
 }
