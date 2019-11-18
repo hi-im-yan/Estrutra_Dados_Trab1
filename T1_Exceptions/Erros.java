@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class Erros {
@@ -11,12 +13,11 @@ public class Erros {
     private Stack<String> horariosUltrapassamLimitesPermitidos = new Stack<String>();
     private Stack<String> horarioInicialInvalido = new Stack<String>();
 
-    public Stack<Professor> teste() {
-        return this.professorMinistrandoAulasNoMesmoHorario;
-    }
 
     public Erros() {
     }
+
+    //o método search() está servindo apenas para evitar duplicação de erros
 
     public void setTurmaInexistente(String acrTurma) {
         if (turmaInexistente.search(acrTurma) == -1)
@@ -59,66 +60,69 @@ public class Erros {
             this.horarioInicialInvalido.push(turma);
     }
 
+    //função que mostra todos os erros de conflitos e atribuições inexistentes.
     public void showAll() {
         System.out.println("\n");
+
+        SalaComTurmasNoMesmoHorario.forEach(s -> {
+            System.out.print("A sala " + s.getAcronimo() + " está com mais de uma turma alocada no mesmo horario: ");
+            s.getTurmaExtraNoMesmoHorario().forEach(sl -> {
+                if(sl.equals(s.getTurmaExtraNoMesmoHorario().get(s.getTurmaExtraNoMesmoHorario().size() - 1)))
+                    System.out.println(sl + ".");
+                else
+                    System.out.print(sl + ", ");
+            });
+        });
 
         horariosUltrapassamLimitesPermitidos.forEach(turma -> {
             System.out.println("A duracao de aula da turma " + turma + " ultrapassa os limites permitidos.");
         });
-        horarioInicialInvalido.forEach(turma -> {
-            System.out.println("O horario inicial de  " + turma + " e invalido.");
-        });
-        SalaComTurmasNoMesmoHorario.forEach(s -> {
-            System.out.println("A sala " + s.getAcronimo() + " está com mais de uma turma alocada no mesmo horario: "
-                    + s.getTurmaExtraNoMesmoHorario());
-        });
 
+        horarioInicialInvalido.forEach(turma -> {
+            System.out.println("O horario inicial de " + turma + " e invalido.");
+        });
         professorMinistrandoAulasNoMesmoHorario.forEach(p -> {
+            
             if (p.getListaTurmasNoMesmoHorario().size() > 0) {
-                // IS está ministrando duas turmas no mesmo horário: EDOO-T01,TRC3-T01
-                System.out.println(p.getAcronimo() + " está ministrando " + p.getListaTurmasNoMesmoHorario().size()
-                        + " turmas no mesmo horario: " + p.getListaTurmasNoMesmoHorario());
+                System.out.print(p.getAcronimo() + " está ministrando " + p.getListaTurmasNoMesmoHorario().size()
+                        + " turmas no mesmo horario: ");
+                p.getListaTurmasNoMesmoHorario().forEach(t -> {
+                    if(t.equals(p.getListaTurmasNoMesmoHorario().get(p.getListaTurmasNoMesmoHorario().size() - 1)))
+                        System.out.println(t + ".");
+                    else
+                        System.out.print(t + ", ");
+                });
             }
         });
 
         if (turmaInexistente.size() > 0) {
-            System.out.print("A(s) turmas(s) ");
             turmaInexistente.forEach(t -> {
-                if (t.equals(turmaInexistente.lastElement()))
-                    System.out.println(t + " é(são) inexistente(s). ");
-                else
-                    System.out.print(t + ", ");
+                System.out.print("A turma "); System.out.println(t + " não existe.");
             });
-            // System.out.println();
+
         }
 
         if (salaInexistente.size() > 0) {
-            System.out.print("A(s) sala(s) ");
             salaInexistente.forEach(s -> {
-                if (s.equals(salaInexistente.lastElement()))
-                    System.out.println(s + " é(são) inexistente(s). ");
-                else
-                    System.out.print(s + ", ");
+                System.out.print("A sala "); System.out.println(s + " não existe.");
             });
-            // System.out.println();
         }
 
         turmaComVariosProfessores.forEach(t -> {
-            System.out.println("A turma " + t.getAcronimo() + " está sendo ministrada por mais de um professor:"
-                    + t.getProfessores());
+            System.out.print("A turma " + t.getAcronimo() + " está sendo ministrada por mais de um professor: ");
+            t.getProfessores().forEach(te -> {
+                if(te.equals(t.getProfessores().get(t.getProfessores().size() - 1)))
+                    System.out.println(te + ".");
+                else
+                    System.out.print(te + ", ");
+            });
         });
 
-        // System.out.println();
 
         if (professorInexistente.size() > 0) {
-            System.out.print("O(s) professores(s) ");
             professorInexistente.forEach(p -> {
-                if (p.equals(professorInexistente.lastElement()))
-                    System.out.println(p + " é(são) inexistente(s). ");
-                else
-                    System.out.print(p + ", ");
+                System.out.print("O professor "); System.out.println(p + " não existe.");
             });
-            // System.out.println();
         }
 
         System.out.println("\n");

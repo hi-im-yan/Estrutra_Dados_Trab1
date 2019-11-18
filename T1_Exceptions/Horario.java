@@ -3,72 +3,39 @@ import java.util.*;
 public class Horario {
     private int duracao;
     private String horarioInicial;
-    private final Map<String, String> intervalos;
-    private List<Map.Entry<String, String>> entrySet;
-
+    private static String[][] intervalos = {{"9h15", "9h25"}, {"12h25", "13h15"}, {"15h15", "15h25"}, {"18h25", "18h30"}, {"20h30", "20h40"}};
     public boolean isValid() {
-        if (this.duracao > 3)
-            return false;
+
+        if(this.horarioInicial.equals("20h40") || this.horarioInicial.equals("21h40"))
+            return true;
+        
         int indexOfH = this.horarioInicial.indexOf("h");
         int horaInicial = Integer.parseInt(this.horarioInicial.substring(0, indexOfH));
         int minutoInicial = Integer.parseInt(this.horarioInicial.substring(indexOfH + 1, this.horarioInicial.length()));
         int horaResultante = horaInicial + this.duracao;
         String strResultante = horaResultante + "h" + minutoInicial;
-        for (Map.Entry<String, String> intervalo : this.entrySet) {
-            System.out.println("Inicial: " + this.horarioInicial.hashCode() + "\n");
-            System.out.println("Intervalo fim: " + intervalo.getValue().hashCode() + "\n");
-            if (this.horarioInicial.hashCode() < intervalo.getValue().hashCode())
-                continue;
-            else if (this.horarioInicial.hashCode() > intervalo.getValue().hashCode()
-                    && this.horarioInicial.hashCode() < intervalo.getKey().hashCode())
-                return false;
-            else if (intervalo.getKey().hashCode() < strResultante.hashCode()
-                    && intervalo.getValue().hashCode() > strResultante.hashCode())
-                return false;
 
+        if(strResultante.hashCode() > "20h30".hashCode())
+            return false;
+        
+        boolean flag = true;
+        for(int i = 0; i < intervalos.length; i++){
+            if(this.horarioInicial.hashCode() == intervalos[i][1].hashCode() && strResultante.hashCode() < intervalos[i+1][0].hashCode()){
+                return true;
+            }
+            if(strResultante.hashCode() > intervalos[i][1].hashCode() && strResultante.hashCode() < intervalos[i+1][0].hashCode()){
+                flag = false;
+            }
         }
-
-        return true;
+        return flag;
     }
 
-    public Horario() {
-        this.intervalos = new HashMap<>();
-        this.intervalos.put("9h15", "9h25");
-        this.intervalos.put("12h25", "13h15");
-        this.intervalos.put("15h15", "15h25");
-        this.intervalos.put("18h25", "18h30");
-        this.intervalos.put("20h30", "20h40");
-
-        this.entrySet = new LinkedList<Map.Entry<String, String>>(intervalos.entrySet());
-        Collections.sort(this.entrySet, (m1, m2) -> {
-            Integer cmp1 = m1.getKey().hashCode() + m1.getValue().hashCode();
-            Integer cmp2 = m2.getKey().hashCode() + m2.getValue().hashCode();
-            return cmp1.compareTo(cmp2);
-        });
-    }
-
-    public Horario(int duracao, String horarioInicial, Map<String, String> intervalos) {
-        this.duracao = duracao;
-        this.horarioInicial = horarioInicial;
-        this.intervalos = null;
-    }
 
     public Horario(int duracao, String horarioInicial) {
         this.duracao = duracao;
         this.horarioInicial = horarioInicial;
-        this.intervalos = new HashMap<>();
-        this.intervalos.put("9h15", "9h25");
-        this.intervalos.put("12h25", "13h15");
-        this.intervalos.put("15h15", "15h25");
-        this.intervalos.put("18h25", "18h30");
-        this.intervalos.put("20h30", "20h40");
-        this.entrySet = new LinkedList<Map.Entry<String, String>>(intervalos.entrySet());
-        Collections.sort(this.entrySet, (m1, m2) -> {
-            Integer cmp1 = m1.getKey().hashCode() + m1.getValue().hashCode();
-            Integer cmp2 = m2.getKey().hashCode() + m2.getValue().hashCode();
-            return cmp1.compareTo(cmp2);
-        });
     }
+
 
     public int getDuracao() {
         return this.duracao;
@@ -86,7 +53,7 @@ public class Horario {
         this.horarioInicial = horarioInicial;
     }
 
-    public Map<String, String> getIntervalos() {
+    public String[][] getIntervalos() {
         return this.intervalos;
     }
 

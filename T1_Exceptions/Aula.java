@@ -1,33 +1,17 @@
 import java.util.Stack;
 import java.util.Objects;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Unknow
- */
 public class Aula {
 
     private int diaDaSemana;
     private String horarioInicial;
     private int duracaoAula;
 
-    // private HashMap<HashMap<Professor, Turma>,HashMap<Turma, Sala>>AULAS = new
-    // HashMap<>();
 
-    // for (MapEntry node : AULAS) {
-    // for (EntryKey key : AULAS.keys()) {
-    // key = new HashMap<>()
-    // }
-    // for
-    // }
     private Turma turma;
     private SalaLab sala;
+    //variavel que contém turmas na mesma sala, mesmo dia e mesmo horário
     private Stack<String> extraTurmas = new Stack<String>();
 
     public Aula(int diaDaSemana, String horarioInicial, int duracaoAula, Turma turma, SalaLab sala) {
@@ -39,21 +23,7 @@ public class Aula {
         this.extraTurmas.push(turma.getAcronimo());
     }
 
-    public void verificarErros() {
-        if (this.extraTurmas.size() > 1) {
-            exibeTurmaNaMesmaSalaMesmoHorario();
-        }
-    }
 
-    public void exibeTurmaNaMesmaSalaMesmoHorario() {
-        System.out.print(this.sala.getAcronimo() + " está com mais de uma turma alocada no mesmo horário: ");
-        this.extraTurmas.forEach(et -> {
-            if (et.equals(extraTurmas.lastElement()))
-                System.out.println(et + ".");
-            else
-                System.out.print(et + ", ");
-        });
-    }
 
     @Override
     public String toString() {
@@ -126,10 +96,12 @@ public class Aula {
         return this.turma;
     }
 
+    //caso o atributo turma for nulo, vai ser atribuido uma nova turma, isso evita sobreposição
     public void setTurma(Turma turma) {
         if (this.turma == null)
             this.turma = turma;
 
+        //turmas extras serão alocadas na variável extraTurmas
         if (this.extraTurmas.search(turma.getAcronimo()) == -1)
             extraTurmas.push(turma.getAcronimo());
     }

@@ -4,6 +4,8 @@ import java.util.List;
 public class SalaLab {
     private String nome;
     private String acronimo;
+
+    //variável que guarda turmas alocadas no mesmo dia, mesmo horario
     private List<String> turmaExtra = new ArrayList<String>();
 
     // -----------------------Constructors----------------------------------//

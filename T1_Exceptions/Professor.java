@@ -5,6 +5,7 @@ public class Professor {
     private String nome;
     private String acronimo;
 
+    //variável que armazena turmas que o professor está ministrando no mesmo dia e mesmo horario.
     private List<String> turmasMinistradasNoMesmoHorario = new ArrayList<String>();
 
     // -----------------------Constructors----------------------------------//

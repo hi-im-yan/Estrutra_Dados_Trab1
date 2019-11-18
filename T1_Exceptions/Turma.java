@@ -5,11 +5,8 @@ public class Turma {
 
     private String nome;
     private String acronimo;
-    // Professores está como pilha, pois pela lógica o primeiro professor que pegar
-    // a turma fica com ela.
-    // First in, Last out.
-    // A pilha armazena uma String pois ela precisa armazenar o acrônimo do
-    // professor e não um Professor.
+
+    //pilha que irá armazenar professores que foi tentado atribuir na Turma
     private Stack<Professor> professores = new Stack<Professor>();
     private Professor professor;
 
@@ -52,28 +49,15 @@ public class Turma {
     }
 
     public void setProfessor(Professor professor) {
-        // Caso essa turma não tenha professor ainda, é atribuido um professor fixo para
-        // essa turma
+        // Caso essa turma não tenha professor ainda, é atribuido um professor fixo para turma
         if (this.professor == null)
             this.professor = professor;
 
+        //se o professor não existir na pilha, ele é adicionado
         if (this.professores.search(professor) == -1)
             this.professores.push(professor);
     }
 
-    // -----------------------Verificar os erros----------------------------------//
-    // public void mostrarErro(){
-    // if(professores.size() > 1){
-    // System.out.print("A turma " + this.acronimo + " está sendo ministrada por
-    // mais de um professor: ");
-    // professores.forEach(p -> {
-    // if(p.getAcronimo().equals(professores.lastElement().getAcronimo()))
-    // System.out.println(p.getAcronimo() + ".");
-    // else
-    // System.out.print(p.getAcronimo() + ", ");
-    // });
-    // }
-    // }
 
     @Override
     public int hashCode() {

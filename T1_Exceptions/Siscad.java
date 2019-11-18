@@ -20,6 +20,7 @@ class Siscad {
 
   private static List<String> horariosValidos = new ArrayList<>();
 
+
   public static void main(String[] paramArrayOfString) {
     Siscad.horariosValidos.add("7h15");
     Siscad.horariosValidos.add("8h15");
@@ -36,6 +37,7 @@ class Siscad {
     Siscad.horariosValidos.add("20h40");
     Siscad.horariosValidos.add("21h40");
     leituraDeDados();
+    
 
     // PROFESSORES.forEach(p -> {
     // System.out.println(p.getListaTurmasNoMesmoHorario());
@@ -57,7 +59,7 @@ class Siscad {
     // TURMAS.forEach(turma -> {
     // turma.mostrarErro();
     // });
-    exibicaoDeErros();
+    //exibicaoDeErros();
 
     erro.showAll();
 
@@ -161,18 +163,6 @@ class Siscad {
       }
 
       if (tempTurma != null && tempSala != null) {
-
-        boolean jahExisteEssaAula = false;
-
-        for (Aula aula : AULAS) {
-          if (dia == aula.getDiaDaSemana() && aula.getHorarioInicial().equals(horario)) {
-            if (acrSala.equals(aula.getSala().getAcronimo())) {
-              // Se ja existir uma Aula com os mesmos atributos, ele vai conservar só a
-              // primeira atribuição
-              jahExisteEssaAula = true;
-            }
-          }
-        }
 
         AULAS.add(new Aula(dia, horario, duracao, tempTurma, tempSala));
 
